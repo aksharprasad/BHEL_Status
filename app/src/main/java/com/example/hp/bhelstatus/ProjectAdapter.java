@@ -15,6 +15,7 @@ import java.util.List;
 public class ProjectAdapter extends ArrayAdapter<Project> {
     private Context mcontext;
     private List<Project> plist;
+    String name;
 
     public ProjectAdapter(Context context, int resource, List<Project> objects) {
         super(context, resource, objects);
@@ -32,14 +33,23 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
         }
         final Project current = getItem(position);
 
+        TextView circle = (TextView) list_item.findViewById(R.id.circle);
         list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Add later.
+                Intent myIntent = new Intent(mcontext, ProjectView.class);
+                myIntent.putExtra("name", current.getName());
+                myIntent.putExtra("id", current.getID());
+                myIntent.putExtra("pid", current.getpID());
+                myIntent.putExtra("n", current.getN());
+                myIntent.putExtra("deptname", current.getDeptname());
+                mcontext.startActivity(myIntent);
             }
         });
         TextView d = (TextView) list_item.findViewById(R.id.textView);
-        d.setText(current.getName());
+        name = current.getName();
+        d.setText(name);
+        circle.setText(String.valueOf(name.charAt(0)));
 
         return list_item;
     }

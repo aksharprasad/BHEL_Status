@@ -6,27 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="16dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_weight="0"
+        android:textColor="@color/text"
+        android:layout_height="wrap_content"
+        android:text="Name:" />
     <EditText
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Name" />
+        android:layout_weight="1"
+        android:textColor="@color/text"
+        android:inputType="textPersonName"/>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textColor="@color/text"
+            android:text="Number of fields:"
+            />
 
     <EditText
         android:id="@+id/no"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter number of fields " />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/butt"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to list"
-        android:id="@+id/go"/>
+        android:textColor="@color/text"
+        android:layout_weight="1"
+        android:inputType="number"/>
+    </LinearLayout>
+
+<Button
+    android:layout_marginTop="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/butt"
+    android:background="@drawable/button"
+    android:text="SUBMIT"
+    android:textColor="@color/white"
+    />
 </LinearLayout>
