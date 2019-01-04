@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Field"
+            android:textStyle="bold|italic"
+            android:textColor="@color/theme"
+            android:textSize="20sp"
+            android:layout_weight="2">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Second"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            android:layout_weight="3">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Third"
+            android:textSize="20sp"
+            android:textStyle="bold|italic"
+            android:textColor="@color/black"
+            android:layout_weight="3">
+        </TextView>
+    </LinearLayout>
+
+        <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:padding="16dp"
+        android:id="@+id/flist"></ListView>
+
+</LinearLayout>

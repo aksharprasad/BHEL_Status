@@ -21,16 +21,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 
 public class ProjectAdd extends AppCompatActivity {
     String name,deptname,pid,id,ns;
     EditText vname,vid;
-    DatabaseReference db;
-    int n,i;
+    DatabaseReference db,dba,dbb;
+    int n,i,c;
+    String ab;
     DatabaseReference dbp,dbn;
     HashMap<String, String> map = new HashMap<>();
     Spinner year, quater;
+    public static View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,10 @@ public class ProjectAdd extends AppCompatActivity {
         deptname = intent.getStringExtra("deptname");
         n = intent.getIntExtra("n",0 );
 
-        setTitle("Add Project under "+ deptname );
+        setTitle("Add Material under "+ deptname );
 
         vname = (EditText) findViewById(R.id.name);
         Button butt = (Button) findViewById(R.id.butt);
-        db = FirebaseDatabase.getInstance().getReference("bhel").child("projects").child(id);
 
         year = (Spinner) findViewById(R.id.year);
         quater = (Spinner) findViewById(R.id.quarter);
@@ -54,38 +54,78 @@ public class ProjectAdd extends AppCompatActivity {
         Calendar calender;
         calender= Calendar.getInstance();
         int yr= calender.get(Calendar.YEAR);
+        int month = calender.get(Calendar.MONTH);
+
+        String qtr = "Quarter 1";
+        switch (month){
+            case 1:
+            case 2:
+            case 3:
+                qtr = "Quarter 1";
+                break;
+            case 4:
+            case 5:
+            case 6:
+                qtr = "Quarter 2";
+                break;
+            case 7:
+            case 8:
+            case 9:
+                qtr = "Quarter 3";
+                break;
+            case 10:
+            case 11:
+            case 12:
+                qtr = "Quarter 4";
+                break;
+        }
+
         ArrayList<String> years= new ArrayList<String>();
         for(i=yr+3;i>=2000;i--)
-            years.add(Integer.toString(i));
+            years.add(Integer.toString(i) + "-" + Integer.toString(i+1));
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,R.layout.view_spinner,years);
         year.setAdapter(adapter);
+        year.setPrompt(""+yr);
 
         ArrayList<String> q = new ArrayList<String>();
-        q.add("Quater 1");
-        q.add("Quater 2");
-        q.add("Quater 3");
-        q.add("Quater 4");
+        q.add("Quarter 1");
+        q.add("Quarter 2");
+        q.add("Quarter 3");
+        q.add("Quarter 4");
         ArrayAdapter<String> qadapter= new ArrayAdapter<String>(this,R.layout.view_spinner,q);
         quater.setAdapter(qadapter);
+        quater.setPrompt(qtr);
+        DatabaseReference d = FirebaseDatabase.getInstance().getReference("bhel").child("fields").child(id).child("ab");
 
+        d.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                c = Integer.parseInt(dataSnapshot.getValue(String.class));
+                Log.i("AB",""+c);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = vname.getText().toString().trim();
+                db = FirebaseDatabase.getInstance().getReference("bhel").child("projects").child(id).child(year.getSelectedItem().toString().split("\\-")[0]).child(quater.getSelectedItem().toString());
                 if(!TextUtils.isEmpty(name)) {
-                    Toast.makeText(ProjectAdd.this,
-                            "OnClickListener : " +
-                                    "\nSpinner 1 : "+ quater.getSelectedItem().toString() +
-                                    "\nSpinner 2 : "+ year.getSelectedItem().toString(),
-                            Toast.LENGTH_LONG).show();
+                    //Toast.makeText(ProjectAdd.this,
+                      //      "OnClickListener : " +
+                        //            "\nSpinner 1 : "+ quater.getSelectedItem().toString() +
+                          //          "\nSpinner 2 : "+ year.getSelectedItem().toString(),
+                            //Toast.LENGTH_LONG).show();
 
                     pid = db.push().getKey();
                     Project p = new Project(name, id, pid, n,deptname);
                     db.child(pid).setValue(p);
 
                     //Log.i("pid PA",pid);
-                    dbp = FirebaseDatabase.getInstance().getReference("bhel").child("projects").child(id).child(pid);
+                    dbp = FirebaseDatabase.getInstance().getReference("bhel").child("projects").child(id).child(year.getSelectedItem().toString().split("\\-")[0]).child(quater.getSelectedItem().toString()).child(pid);
 
                     Log.i("out", "damn");
 
@@ -97,9 +137,15 @@ public class ProjectAdd extends AppCompatActivity {
                         else
                             Log.i("Map", "nil");
                     }
-                    dbp = dbp.child("fvalues");
-                    dbp.setValue(map);
-
+                    if(c == 1){
+                        dba = dbp.child("a").child("fvalues");
+                        dbb = dbp.child("b").child("fvalues");
+                        dba.setValue(map);
+                        dbb.setValue(map);
+                    }
+                    else{
+                        dbp.child("fvalues").setValue(map);
+                    }
                     Toast.makeText(ProjectAdd.this, "Project "+ name + " added succesfully.", Toast.LENGTH_LONG).show();
 
                     Intent myIntent = new Intent(getApplicationContext(), ProjectList.class);
@@ -109,6 +155,7 @@ public class ProjectAdd extends AppCompatActivity {
                     startActivity(myIntent);
                 }
                 else{
+                    //new CustomToast().Show_Toast(ProjectAdd.this, view, "Please enter valid data.");
                     Toast.makeText(ProjectAdd.this, "Please enter valid data.", Toast.LENGTH_LONG).show();
                 }
 

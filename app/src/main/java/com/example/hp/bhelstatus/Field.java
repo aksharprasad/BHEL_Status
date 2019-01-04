@@ -9,11 +9,13 @@ public class Field {
     private String projectName;
     private String deptName;
     private int number;
+    private int type;
+    private int admin;
 
     public Field(){
     }
 
-    public Field(String id, String pid, String fieldName, String fieldValue, int n, String projectName, String deptName, int number) {
+    public Field(String id, String pid, String fieldName, String fieldValue, int n, String projectName, String deptName, int number,int type,int admin) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
         this.n = n;
@@ -22,6 +24,8 @@ public class Field {
         this.projectName = projectName;
         this.deptName = deptName;
         this.number = number;
+        this.type = type;
+        this.admin = admin;
     }
 
     public String getProjectName() {
@@ -68,6 +72,14 @@ public class Field {
         this.id = id;
     }
 
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+
     public void setPid(String pid) {
         this.pid = pid;
     }
@@ -88,4 +100,13 @@ public class Field {
 
         this.number = number;
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
 }

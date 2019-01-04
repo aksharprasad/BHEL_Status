@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hp.bhelstatus">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bhel"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -16,7 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ReferalRequest"></activity>
         <activity android:name=".MainField"></activity>
+        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".UserInformation"></activity>
+        <activity android:name=".ListDepartments"></activity>
         <activity android:name=".DeptList"></activity>
         <activity android:name=".ProjectList"
             android:parentActivityName=".MainActivity"></activity>
@@ -24,6 +32,18 @@
         <activity android:name=".ProjectView"
             android:parentActivityName=".ProjectList"></activity>
         <activity android:name=".FieldChange"></activity>
+        <activity android:name=".RequestList"></activity>
+        <activity android:name=".RequestDetails"></activity>
+        <activity android:name=".getYear"></activity>
+        <activity android:name=".Upload"></activity>
+        <activity android:name=".Shortage"></activity>
+        <activity android:name=".ShortageView"></activity>
+        <activity android:name=".ViewChanges"></activity>
+        <activity android:name=".getAB"></activity>
+        <activity android:name=".progressView"></activity>
+        <activity android:name=".Download"></activity>
+        <activity android:name=".ShortageChange"></activity>
+        <activity android:name=".datePick"></activity>
+        <activity android:name=".getAB1"></activity>
     </application>
-
 </manifest>

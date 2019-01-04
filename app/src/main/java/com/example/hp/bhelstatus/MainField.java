@@ -3,22 +3,20 @@ package com.example.hp.bhelstatus;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,10 +29,13 @@ public class MainField extends AppCompatActivity {
     EditText editText;
     EditText input;
     DatabaseReference mField;
-    int i,n;
+    int i,n,c;
+    boolean check;
     TextView text;
     LinearLayout child;
     boolean f = true;
+    public static View viewt;
+    CheckBox ch,cb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class MainField extends AppCompatActivity {
         Intent intent = getIntent();
         n = intent.getIntExtra("n", 0);
         name = intent.getStringExtra("name");
+        c = intent.getIntExtra("ab", 0);
         Log.e("name",name);
         Log.e("n",""+n);
 
@@ -108,6 +110,8 @@ public class MainField extends AppCompatActivity {
             editText = (EditText) view.findViewById(R.id.edit);
             editText.setId(i);
 
+            ch = (CheckBox) view.findViewById(R.id.ch);
+            ch.setId(1000+i);
             ll.addView(view);
         }
 
@@ -120,15 +124,21 @@ public class MainField extends AppCompatActivity {
                 for (i = 0; i < n && f; i++) {
                     input = (EditText) findViewById(i);
                     fname = input.getText().toString().trim();
+                    cb = (CheckBox) findViewById(1000+i);
+                    check = cb.isChecked();
                     if (TextUtils.isEmpty(fname)) {
-                        Toast.makeText(MainField.this, "Please enter valid data.", Toast.LENGTH_LONG).show();
+                        new CustomToast().Show_Toast(MainField.this, viewt, "Please enter valid data.");
                         f = false;
                         break;
                     } else {
-                        map.put("field" + i, fname);
-                        Log.e("map", map.get("field" + i));
+                        if(check == true)
+                            map.put("field" + i, fname + "$1");
+                        else
+                            map.put("field" + i, fname + "$0");
+                        //Log.e("map", map.get("field" + i));
                     }
                 }
+                map.put("ab",""+c);
                 if(f) {
                     String id = mField.push().getKey();
                     map.put("id", id);
@@ -137,7 +147,7 @@ public class MainField extends AppCompatActivity {
 
                     Toast.makeText(MainField.this, "Department "+ name + " added succesfully.", Toast.LENGTH_LONG).show();
 
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent i = new Intent(getApplicationContext(), ListDepartments.class);
                     startActivity(i);
                 }
             }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="FROM DATE"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:textColor="@color/theme"/>
+
+    <Button
+        android:text="Set Date"
+        android:background="@drawable/button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="14dp"
+        android:id="@+id/btnDatePicker"
+        android:layout_below="@id/txtDate"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TO DATE"
+        android:textSize="16sp"
+        android:textColor="@color/theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnDatePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/txtMonthYear" />
+
+    <Button
+        android:text="Set Date"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button"
+        android:id="@+id/btnMonthYear"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/txtMonthYear"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button"
+        android:id="@+id/sub"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/btnMonthYear"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

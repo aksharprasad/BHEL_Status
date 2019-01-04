@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/not_critical"
+        android:title="Not Critical"/>
+    <item android:id="@+id/critical"
+        android:title="Critical" />
+    <item android:id="@+id/super_critical"
+        android:title="Super Critical" />
+</menu>
